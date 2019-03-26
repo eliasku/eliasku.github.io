@@ -43,7 +43,7 @@ Module.setStatus("Downloading..."), window.onerror = function (e) {
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker
-            .register('/pwa-examples/a2hs/sw.js')
+            .register('/colorsense/sw.js')
             .then(function () {
                 console.log('Service Worker Registered');
             });
