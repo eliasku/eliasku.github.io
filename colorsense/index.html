@@ -1,54 +1,101 @@
 <!doctypehtml>
-<html lang=en-us>
+<html lang="en-us">
 <head>
-    <link rel="manifest" href="colorsense.webmanifest">
-    <link rel="icon" type="image/png" href="icons/icon192.png" sizes="192x192" />
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/png" href="icons/icon192.png" sizes="192x192"/>
     <script async src="pwacompat.min.js"></script>
-    <meta name=mobile-web-app-capable content=yes>
-    <meta name=apple-mobile-web-app-capable content=yes>
-    <meta charset=utf-8>
-    <meta content="text/html; charset=utf-8" http-equiv=Content-Type>
-    <meta content="width=device-width,initial-scale=1" name=viewport>
-    <title>tpl</title>
-    <style>body, html {
-        height: 100%;
-        overflow: hidden
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="utf-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <title>Color Sense</title>
+    <style>
+        body, html {
+            height: 100%;
+            overflow: hidden
+        }
+
+        body {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+<body onload="init()">
+
+<figure style="overflow:visible;" id="spinner">
+    <div style="margin-top:1.5em; line-height:150%; text-align: center;">
+        <img src="icons/icon192.png" width=192 height=192 style="display:block;margin-left: auto;margin-right: auto;">
+        <strong>Color Sense</strong>
+        <div id="status"></div>
+        <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
+    </div>
+</figure>
+
+<div id="gamecontainer" style="width:100%;height:100%">
+    <canvas id="gameview" oncontextmenu="event.preventDefault()" width="200" height="600">
+
+    </canvas>
+</div>
+<script>
+    var Module = {};
+
+    function init() {
+        var spinner = document.getElementById('spinner');
+        var game = document.getElementById('gameview');
+        var status = document.getElementById('status');
+
+        spinner.style.display = 'block';
+        game.style.display = 'none';
+        status.innerHTML = "Downloading...";
+
+        Module = {
+            preRun: [],
+            postRun: [],
+            print: void 0,
+            printErr: function (e) {
+            },
+            canvas: function () {
+                var e = document.getElementById("gameview");
+                return e.addEventListener("webglcontextlost", function (e) {
+                    alert("WebGL context lost. You will need to reload the page.");
+                    e.preventDefault();
+                }, !1);
+            }(),
+            setStatus: function (e) {
+                status.textContent = e;
+                if (e === "" && game.style.display !== 'block') {
+                    spinner.style.display = 'none';
+                    game.style.display = 'block';
+                }
+            },
+            monitorRunDependencies: function (e) {
+                // console.info(e);
+            }
+        };
+
+        window.onerror = function (e) {
+            status.innerHTML = e;
+            spinner.style.display = 'block';
+            game.style.display = 'none';
+        };
+
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "colorsense.js";
+        document.getElementsByTagName("head")[0].append(script);
     }
 
-    body {
-        margin: 0;
-        padding: 0
-    }</style>
-</head>
-<body>
-<div id=gamecontainer style=width:100%;height:100%>
-    <canvas height=600 id=gameview oncontextmenu=event.preventDefault() width=200></canvas>
-</div>
-<script>var Module = {
-    preRun: [], postRun: [], print: void 0, printErr: function (e) {
-    }, canvas: function () {
-        var e = document.getElementById("gameview");
-        return e.addEventListener("webglcontextlost", function (e) {
-            alert("WebGL context lost. You will need to reload the page."), e.preventDefault()
-        }, !1), e
-    }(), setStatus: function (e) {
-    }, totalDependencies: 0, monitorRunDependencies: function (e) {
-        this.totalDependencies = Math.max(this.totalDependencies, e), Module.setStatus(e ? "Preparing... (" + (this.totalDependencies - e) + "/" + this.totalDependencies + ")" : "All downloads complete.")
-    }
-};
-Module.setStatus("Downloading..."), window.onerror = function (e) {
-}
-</script>
-<script async src=colorsense.js></script>
-<script>
-    if ('serviceWorker'in navigator) {
+    if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/colorsense/sw.js', {
             scope: '/colorsense/'
-        }).then(function(registration) {
+        }).then(function (registration) {
             console.log('Service Worker Registered');
+        }).catch(function (e) {
+            console.log('Service Worker Error: ' + e);
         });
-
-        navigator.serviceWorker.ready.then(function(registration) {
+        navigator.serviceWorker.ready.then(function (registration) {
             console.log('Service Worker Ready');
         });
     }
