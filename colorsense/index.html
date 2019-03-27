@@ -2,9 +2,8 @@
 <html lang=en-us>
 <head>
     <link rel="manifest" href="colorsense.webmanifest">
-    <script async src="pwacompat.min.js"></script>
-    <!-- include icon also from manifest -->
     <link rel="icon" type="image/png" href="icons/icon192.png" sizes="192x192" />
+    <script async src="pwacompat.min.js"></script>
     <meta name=mobile-web-app-capable content=yes>
     <meta name=apple-mobile-web-app-capable content=yes>
     <meta charset=utf-8>
@@ -44,7 +43,7 @@ Module.setStatus("Downloading..."), window.onerror = function (e) {
 <script>
     if ('serviceWorker'in navigator) {
         navigator.serviceWorker.register('/colorsense/sw.js', {
-            scope: '/'
+            scope: '/colorsense/'
         }).then(function(registration) {
             console.log('Service Worker Registered');
         });
