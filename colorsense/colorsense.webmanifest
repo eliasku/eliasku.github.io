@@ -37,5 +37,15 @@
     "start_url": "/colorsense/index.html",
     "display": "fullscreen",
     "theme_color": "#B12A34",
-    "background_color": "#222222"
+    "background_color": "#222222",
+    "related_applications": [
+      {
+        "platform": "play",
+        "url": "https://play.google.com/store/apps/details?id=com.eliasku.odd_color_sense_vision_test_challenge",
+        "id": "com.eliasku.odd_color_sense_vision_test_challenge"
+      }, {
+        "platform": "itunes",
+        "url": "https://itunes.apple.com/us/app/id1435111697"
+      }
+    ]
 }
