@@ -12,6 +12,23 @@
 
 		gtag('js', new Date());
 		gtag('config', 'UA-3755607-9');
+
+		var errorHandlerPrev = window.onerror;
+		window.onerror = function logError(msg, url, line, col, err) {
+            var desc = msg;
+            if (typeof err !== 'undefined' && typeof err.message !== 'undefined') {
+                desc = err.message;
+            }
+            desc += ' @ ' + url + ':' + line + ':' + col;
+            gtag('event', 'exception', {
+                'description': desc,
+                'fatal': false
+            });
+			if (typeof errorHandlerPrev === 'function') {
+				return errorHandlerPrev(msg, url, line, col, err);
+			}
+			return false;
+		};
     </script>
 
     <!-- meta -->
@@ -22,6 +39,7 @@
     <title>eliasku pgh</title>
 </head>
 <body>
+<p>Demo</p>
 <ul>
     <li><a href="colorsense/index.html">Color Sense - Vision Challenge Test</a>
         Online demo of the game (WebAssembly, PWA compatible)
@@ -36,5 +54,36 @@
         Just simple torus
     </li>
 </ul>
+
+<p>Games</p>
+<ul>
+    <li>
+        <p>Color Sense - Vision Challenge Test
+            <small>(2018)</small>
+        </p>
+        <a href="https://play.google.com/store/apps/details?id=com.eliasku.odd_color_sense_vision_test_challenge">Google
+            Play</a> | <a href="https://itunes.apple.com/us/app/color-sense-vision-challenge/id1435111697">AppStore</a>
+        | <a href="colorsense/index.html">Web</a>
+    </li>
+    <li>
+        <p>Duckstazy
+            <small>(2017)</small>
+        </p>
+        <a href="https://play.google.com/store/apps/details?id=com.eliasku.Duckstazy">Google Play</a> | <a
+            href="https://apps.facebook.com/duckstazy">Facebook</a>
+    </li>
+    <li>
+        <p><s>COLORIUM - Odd Color Puzzle</s>
+            <small>(2018)</small>
+        </p>
+        <a href="https://play.google.com/store/apps/details?id=com.eliasku.Colorium">Google Play</a> | <a
+            href="https://www.newgrounds.com/portal/view/716049">NG</a>
+    </li>
+</ul>
+
+<h3>Contacts:</h3>
+    <a href="https://twitter.com/eliaskuvoice">Twitter</a> | <a href="https://github.com/eliasku">GitHub</a> | <a
+            href="https://www.facebook.com/eliaskugames">Facebook</a>
+
 </body>
 </html>

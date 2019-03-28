@@ -8,6 +8,22 @@
 		function gtag() {dataLayer.push(arguments);}
 		gtag('js', new Date());
 		gtag('config', 'UA-3755607-9');
+		var errorHandlerPrev = window.onerror;
+		window.onerror = function logError(msg, url, line, col, err) {
+			var desc = msg;
+			if (typeof err !== 'undefined' && typeof err.message !== 'undefined') {
+				desc = err.message;
+			}
+			desc += ' @ ' + url + ':' + line + ':' + col;
+			gtag('event', 'exception', {
+				'description': desc,
+				'fatal': false
+			});
+			if (typeof errorHandlerPrev === 'function') {
+				return errorHandlerPrev(msg, url, line, col, err);
+			}
+			return false;
+		};
     </script>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" type="image/png" href="icons/icon192.png" sizes="192x192"/>
