@@ -34,6 +34,12 @@
     <meta charset="utf-8">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta content="width=device-width,initial-scale=1" name="viewport">
+
+    <meta property="og:title" content="Color Sense">
+    <meta property="og:description" content="Find ODD Color">
+    <meta property="og:image" content="https://eliasku.github.io/colorsense/icons/preview.png">
+    <meta property="og:url" content="https://eliasku.github.io/colorsense">
+
     <title>Color Sense</title>
     <style>
         body, html {
@@ -109,12 +115,12 @@
 
         var script = document.createElement("script");
         script.async = true;
-        script.src = "colorsense.js?v=7";
+        script.src = "colorsense.js?v=8";
         document.getElementsByTagName("head")[0].append(script);
     }
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/colorsense/sw.js?v=7', {
+        navigator.serviceWorker.register('/colorsense/sw.js?v=8', {
             scope: '/colorsense/'
         }).then(function (registration) {
             console.log('Service Worker Registered');
