@@ -1,13 +1,12 @@
 <!doctypehtml>
 <html lang="en-us">
 <head>
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3755607-9"></script>
     <script>
     window.dataLayer=window.dataLayer||[];
     function gtag(){dataLayer.push(arguments);}
     gtag('js',new Date());
-    gtag('config','UA-3755607-9');
+    gtag('config','');
     var errorHandlerPrev = window.onerror;
     window.onerror = function logError(msg, url, line, col, err) {
         var desc = msg;
@@ -40,21 +39,21 @@
         body, html {
             height: 100%;
             overflow: hidden;
-            background-color: #000;
         }
 
         body {
             margin: 0;
             padding: 0;
+            background-color:black;
         }
     </style>
 </head>
 <body onload="init()">
 
-<figure style="overflow:visible;" id="spinner">
-    <div style="margin-top:1.5em; line-height:150%; text-align: center;">
+<figure style="overflow:visible;color:#73b3cb;font-size: x-large;" id="spinner">
+    <div style="margin-top:1.5em; line-height:300%; text-align: center;">
+        <h1>Color Sense</h1>
         <img src="icons/icon192.png" width=192 height=192 style="display:block;margin-left: auto;margin-right: auto;">
-        <strong>Color Sense</strong>
         <div id="status"></div>
         <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
     </div>
@@ -110,12 +109,12 @@
 
         var script = document.createElement("script");
         script.async = true;
-        script.src = "colorsense.js";
+        script.src = "colorsense.js?v=7";
         document.getElementsByTagName("head")[0].append(script);
     }
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/colorsense/sw.js', {
+        navigator.serviceWorker.register('/colorsense/sw.js?v=7', {
             scope: '/colorsense/'
         }).then(function (registration) {
             console.log('Service Worker Registered');
