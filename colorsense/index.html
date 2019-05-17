@@ -118,12 +118,12 @@
 
         var script = document.createElement("script");
         script.async = true;
-        script.src = "colorsense.js?v=10";
+        script.src = "colorsense.js?v=17000";
         document.getElementsByTagName("head")[0].append(script);
     }
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/colorsense/sw.js?v=10', {
+        navigator.serviceWorker.register('/colorsense/sw.js?v=17000', {
             scope: '/colorsense/'
         }).then(function (registration) {
             console.log('Service Worker Registered');
