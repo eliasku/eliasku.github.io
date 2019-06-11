@@ -1,4 +1,4 @@
-var cacheName = "colorsense_1.0.8_18000";
+var cacheName = "colorsense_1.1.1_22000";
 
 self.addEventListener('install', function (e) {
     var timeStamp = Date.now();
